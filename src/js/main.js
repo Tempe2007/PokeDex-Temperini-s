@@ -7,6 +7,7 @@ import { showPokemonDetails } from "./details.js";
 const searchInput = document.getElementById("search");
 const typeFilter = document.getElementById("typeFilter");
 const orderBy = document.getElementById("orderBy");
+const clearFiltersBtn = document.getElementById("clearFilters");
 const errorMsg = document.getElementById("errorMsg");
 const loadingMsg = document.getElementById("loadingMsg");
 const paginationDiv = document.getElementById("pagination");
@@ -54,7 +55,10 @@ async function loadPokemon(page = 1) {
     totalPages = Math.ceil(totalCount / pageSize);
     const promises = data.results.map((poke) => getPokemonDetails(poke.name));
     allPokemon = await Promise.all(promises);
+    
+    // Mostrar Pokémon sin ordenamiento especial (orden por defecto)
     filteredPokemon = [...allPokemon];
+    
     renderPokemonList(filteredPokemon);
     renderPagination(page, totalPages);
   } catch (error) {
@@ -111,13 +115,33 @@ function sortPokemon(array, order) {
   return array;
 }
 
+// Función para limpiar filtros
+function clearFilters() {
+  searchInput.value = "";
+  typeFilter.value = "";
+  orderBy.value = "name";
+  currentPage = 1;
+  // Recargar la página actual sin filtros ni ordenamiento global
+  loadPokemon(currentPage);
+}
+
+// Hacer la función clearFilters disponible globalmente
+window.clearFilters = clearFilters;
+
 // Renderiza la paginación
 function renderPagination(current, total) {
-  // Oculta la paginación si hay búsqueda o filtro activo
-  if (searchInput.value || typeFilter.value) {
+  // Oculta la paginación si hay búsqueda activa
+  if (searchInput.value) {
     paginationDiv.style.display = "none";
     return;
   }
+  
+  // Si hay filtro de tipo activo, no mostrar paginación
+  if (typeFilter.value) {
+    paginationDiv.style.display = "none";
+    return;
+  }
+  
   paginationDiv.style.display = "flex";
   paginationDiv.innerHTML = `
     <button id="prevPage" ${current === 1 ? "disabled" : ""}>Anterior</button>
@@ -155,6 +179,7 @@ async function loadAllPokemonNames() {
 async function applyFilters() {
   let result = [];
   const searchValue = searchInput.value.trim().toLowerCase();
+  
   if (searchValue) {
     // Búsqueda global
     // Filtra los nombres
@@ -176,12 +201,33 @@ async function applyFilters() {
     paginationDiv.style.display = "none";
     return;
   }
-  // Si no hay búsqueda, paginación normal
-  result = filterByType(typeFilter.value);
-  result = sortPokemon(result, orderBy.value);
-  filteredPokemon = result;
-  renderPokemonList(filteredPokemon);
-  paginationDiv.style.display = typeFilter.value ? "none" : "flex";
+  
+  // Si hay filtro de tipo O cambio de ordenamiento, hacer búsqueda global
+  if (typeFilter.value || orderBy.value !== "name") {
+    showLoading('Cargando todos los Pokémon...');
+    try {
+      // Cargar todos los Pokémon para filtrar y ordenar globalmente
+      const allPokemonData = await getPokemonList(0, 100000);
+      const promises = allPokemonData.results.map(poke => getPokemonDetails(poke.name));
+      const allPokemonGlobal = await Promise.all(promises);
+      
+      // Aplicar filtro de tipo a todos los Pokémon (si hay filtro)
+      result = filterByType(typeFilter.value, allPokemonGlobal);
+      // Aplicar ordenamiento a todos los Pokémon
+      result = sortPokemon(result, orderBy.value);
+      filteredPokemon = result;
+      renderPokemonList(filteredPokemon);
+      paginationDiv.style.display = "none";
+    } catch (error) {
+      showError('Error al procesar Pokémon');
+    } finally {
+      hideLoading();
+    }
+    return;
+  }
+  
+  // Si no hay filtros ni ordenamiento especial, cargar página normal
+  loadPokemon(currentPage);
 }
 
 // Eventos
@@ -189,6 +235,11 @@ if (searchInput && typeFilter && orderBy) {
   searchInput.addEventListener("input", applyFilters);
   typeFilter.addEventListener("change", applyFilters);
   orderBy.addEventListener("change", applyFilters);
+}
+
+// Evento para limpiar filtros
+if (clearFiltersBtn) {
+  clearFiltersBtn.addEventListener("click", clearFilters);
 }
 
 // Evento para mostrar detalles al hacer clic en el botón correspondiente

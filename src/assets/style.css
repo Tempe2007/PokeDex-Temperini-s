@@ -153,6 +153,24 @@ nav ul li a:hover {
   border: 1.5px solid var(--primary);
 }
 
+.clear-filters-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.clear-filters-btn:hover {
+  background: #c62828;
+  border-color: #c62828;
+  transform: translateY(-1px);
+}
+
 /* Estilo del Main */
 
 main {
