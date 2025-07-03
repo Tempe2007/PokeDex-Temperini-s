@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Icono de la página web -->
+    <link rel="icon" type="image/svg+xml" href="/public/icono.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Descripcion de la pagina web -->
+    <meta
+      name="description"
+      content="Pokedex: Busca y descubre información sobre tus Pokémon favoritos. ¡Explora el mundo Pokémon con esta herramienta!"
+    />
+    <!-- Palabras claves de la página web -->
+    <meta
+      name="keywords"
+      content="pokedex, pokemon, pikachu, pokemon go, pokemones"
+    />
+    <!-- Autor de la página web -->
+    <meta name="author" content="Santiago Temeprini" />
+    <title>PokeDex Temperini's</title>
+    <!-- Enlace con CSS -->
+    <link rel="stylesheet" href="../assets/style.css" />
+    <!-- Enlace con Font Awesome -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  </head>
+  
+  <body>
+    <div class="container">
+        <!-- Acá arranca el Header -->
+      <header>
+        <div class="containerHeader">
+          <!-- Contenedor del titulo -->
+          <div class="containerTitle">
+            <h1>Pokédex Favoritos</h1>
+          </div>
+          <!-- Boton para pantallas menores a 768px -->
+          <input type="checkbox" id="menuToggle" />
+          <label for="menuToggle" class="menuIcon">☰</label>
+          <!-- Navegador -->
+          <nav>
+            <!-- Lista de enlaces -->
+            <ul>
+              <li><a href="/" class="inicio">Inicio</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Acá arranca el Main -->
+      <main>
+        <div class="containerMain">
+          <h2>Mis Pokémon Favoritos</h2>
+
+          <div id="pokemonList" class="pokemonList"></div>
+          <!-- Mensaje de error -->
+          <div id="noFavoritesMsg" class="errorMsg" style="display:none;">No tienes Pokémon favoritos aún.</div>
+        </div>
+      </main>
+
+       <!-- Aca arranca el Footer -->
+       <footer>
+        <div class="containerFooter">
+        <!-- Apartado de redes -->
+        <div class="containerRedes">
+          <h4>Acá nos podés seguir</h4>
+          <div class="containerSocial">
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fab fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+        <!-- Apartado de marca -->
+        <div class="containerMarca">
+          <p>@ 2025 Pokédex Temperini's</p>
+          <p>Todos los derechos reservados</p>
+        </div>
+        </div>
+      </footer>
+    </div>
+    </div>
+
+    <!-- Enlace con JS -->
+    <script type="module" src="../js/favorites.js"></script>
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html> 

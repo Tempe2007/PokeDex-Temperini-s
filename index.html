@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Icono de la página web -->
+    <link rel="icon" type="image/svg+xml" href="/public/icono.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Descripcion de la pagina web -->
+    <meta
+      name="description"
+      content="Pokedex: Busca y descubre información sobre tus Pokémon favoritos. ¡Explora el mundo Pokémon con esta herramienta!"
+    />
+    <!-- Palabras claves de la página web -->
+    <meta
+      name="keywords"
+      content="pokedex, pokemon, pikachu, pokemon go, pokemones"
+    />
+    <!-- Autor de la página web -->
+    <meta name="author" content="Santiago Temeprini" />
+    <title>PokeDex Temperini's</title>
+    <!-- Enlace con CSS -->
+    <link rel="stylesheet" href="/src/assets/style.css" />
+    <!-- Enlace con Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Acá arranca el Header -->
+      <header>
+        <div class="containerHeader">
+          <!-- Contenedor del titulo -->
+          <div class="containerTitle">
+            <h1>Pokédex</h1>
+          </div>
+          <!-- Boton para pantallas menores a 768px -->
+          <input type="checkbox" id="menuToggle" />
+          <label for="menuToggle" class="menuIcon">☰</label>
+          <!-- Navegador -->
+          <nav>
+            <!-- Lista de enlaces -->
+            <ul>
+              <li><a href="/src/pages/favorites.html" class="inicio">Favoritos ❤️</a></li>
+            </ul>
+            <!-- Buscador -->
+            <div class="busqueda">
+              <input type="text" id="search" placeholder="Buscar Pókemon..." />
+              <span class="icono">🔍</span>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Contenedor de los filtros -->
+      <!-- Filtrar Pokemones por tipo -->
+      <section class="containerFilters">
+        <select id="typeFilter">
+          <option value="">Todos los tipos</option>
+          <!-- Ordenar Pokemones por Nombre o Número -->
+        </select>
+        <select id="orderBy">
+          <option value="name">Ordenar por Nombre</option>
+          <option value="id">Ordenar por Número</option>
+        </select>
+      </section>
+      <!-- Acá arranca el Main -->
+      <main>
+        <div class="containerMain">
+          <!-- Lista de Pokemones -->
+          <div id="pokemonList" class="pokemonList"></div>
+          <!-- Mensaje de error -->
+          <div id="errorMsg" class="errorMsg" style="display: none"></div>
+          <!-- Mensaje de carga -->
+          <div id="loadingMsg" class="loadingMsg" style="display: none"></div>
+          <!-- Paginación -->
+          <div id="pagination" class="pagination"></div>
+        </div>
+      </main>
+      <!-- Modal para detalles del Pokémon -->
+      <div id="pokemonModal" class="modal" style="display: none">
+        <div class="modal-content" id="modalContent">
+          <span class="close" id="closeModal">&times;</span>
+          <!-- Aquí se llenará la info del Pokémon -->
+        </div>
+      </div>
+
+      <!-- Aca arranca el Footer -->
+      <footer>
+        <div class="containerFooter">
+          <!-- Apartado de redes -->
+          <div class="containerRedes">
+            <h4>Acá nos podés seguir</h4>
+            <div class="containerSocial">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://www.tiktok.com/"
+                target="_blank"
+                aria-label="TikTok"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+            </div>
+          </div>
+          <!-- Apartado de marca -->
+          <div class="containerMarca">
+            <p>@ 2025 Pokédex Temperini's</p>
+            <p>Todos los derechos reservados</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Enlace con JS -->
+    <script src="/src/js/main.js" type="module"></script>
+  </body>
+</html>
